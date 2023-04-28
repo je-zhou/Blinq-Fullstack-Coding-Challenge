@@ -1,7 +1,7 @@
 interface IIntegrationPartner {
 	name: string;
 	description: string;
-	imgUrl: string;
+	imgPath: string;
 	isConnected: boolean;
 	requiredParams: { [key: string]: string | undefined }
 }
@@ -11,14 +11,14 @@ interface IIntegrationPartner {
 class IntegrationPartner {
 	name: string;
 	description: string;
-	imgUrl: string;
+	imgPath: string;
 	isConnected: boolean;
 	requiredParams: { [key: string]: string | undefined }
 
 	constructor(options: IIntegrationPartner) {
 		this.name = options.name;
 		this.description = options.description;
-		this.imgUrl = options.imgUrl;
+		this.imgPath = options.imgPath;
 		this.isConnected = options.isConnected;
 		this.requiredParams = options.requiredParams;
 	}
@@ -30,6 +30,10 @@ class IntegrationPartner {
 	async disconnect(): Promise<void> {
 		console.log("Disconnecting!");
 	}
+
+	getParamsList(): Array<string> {
+		return Object.keys(this.requiredParams);
+	}
 }
 
 // Superclasses
@@ -39,7 +43,7 @@ class SalesforceIntegration extends IntegrationPartner {
 		const options: IIntegrationPartner = {
 			name: "Salesforce",
 			description: "Salesforce is a cloud-based customer relationship management (CRM) software that helps businesses manage their sales, marketing, and customer service activities. It allows companies to streamline their operations and improve their customer relationships.",
-			imgUrl: "",
+			imgPath: "/assets/integration_partners/salesforce.png",
 			isConnected: false,
 			requiredParams: { client_id: undefined, client_secret: undefined },
 		}
@@ -62,7 +66,7 @@ class ZapierIntegration extends IntegrationPartner {
 		const options: IIntegrationPartner = {
 			name: "Zapier",
 			description: "Zapier is a web-based automation tool that allows users to connect various applications and automate tasks between them without any coding. It enables businesses to streamline their workflows and boost productivity.",
-			imgUrl: "",
+			imgPath: "/assets/integration_partners/zapier.png",
 			isConnected: false,
 			requiredParams: { api_key: undefined },
 		}
@@ -84,7 +88,7 @@ class HubspotIntegration extends IntegrationPartner {
 		const options: IIntegrationPartner = {
 			name: "hubspot",
 			description: "Hubspot is an all-in-one inbound marketing, sales, and customer service software that helps businesses attract, engage, and delight customers. It offers a suite of tools for lead generation, lead management, social media marketing, email marketing, and more, all in one platform.",
-			imgUrl: "",
+			imgPath: "/assets/integration_partners/hubspot.png",
 			isConnected: false,
 			requiredParams: { tenant_domain: undefined, client_id: undefined, client_secret: undefined, field_mappings: undefined },
 		}
@@ -103,7 +107,7 @@ class HubspotIntegration extends IntegrationPartner {
 
 
 class IntegrationPartnerFactory {
-	getIntegrationPartners() {
+	getIntegrationPartners(): Array<IntegrationPartner> {
 		return [
 			new SalesforceIntegration(),
 			new ZapierIntegration(),
