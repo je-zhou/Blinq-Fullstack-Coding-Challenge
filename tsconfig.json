@@ -30,6 +30,9 @@
 			"@modules/*": [
 				"src/modules/*"
 			],
+			"@utils/*": [
+				"src/utils/*"
+			],
 			"@content/*": [
 				"src/content/*"
 			]
