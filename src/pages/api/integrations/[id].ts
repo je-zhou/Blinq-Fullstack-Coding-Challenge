@@ -2,10 +2,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-  name: string;
+	name: string;
 };
 
 export default function handler(
-  _req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {}
+	_req: NextApiRequest,
+	res: NextApiResponse<Data>
+) {
+	const { method, body } = _req;
+
+	switch (method) {
+		case 'GET':
+			res.json({ name: 'GET' });
+			break;
+		case 'POST':
+			res.json({ name: 'POST' });
+			break;
+		default:
+			res.setHeader('Allow', ['GET', 'POST']);
+			res.status(405).end(`Method ${method} Not Allowed`);
+			break;
+	}
+}
