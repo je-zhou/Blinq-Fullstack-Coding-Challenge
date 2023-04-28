@@ -1,0 +1,13 @@
+.body {
+	padding: 64px;
+	max-width: 1200px;
+	width: 100%;
+	background-color: aquamarine;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+}
+
+.title {
+	font-size: 48px;
+}
