@@ -1,4 +1,4 @@
-interface IIntegrationPartner {
+export interface IIntegrationPartner {
 	name: string;
 	description: string;
 	imgPath: string;
@@ -8,7 +8,7 @@ interface IIntegrationPartner {
 
 // Base Class
 
-class IntegrationPartner {
+export class IntegrationPartner {
 	name: string;
 	description: string;
 	imgPath: string;
@@ -38,7 +38,7 @@ class IntegrationPartner {
 
 // Superclasses
 
-class SalesforceIntegration extends IntegrationPartner {
+export class SalesforceIntegration extends IntegrationPartner {
 	constructor() {
 		const options: IIntegrationPartner = {
 			name: "Salesforce",
@@ -61,7 +61,7 @@ class SalesforceIntegration extends IntegrationPartner {
 }
 
 
-class ZapierIntegration extends IntegrationPartner {
+export class ZapierIntegration extends IntegrationPartner {
 	constructor() {
 		const options: IIntegrationPartner = {
 			name: "Zapier",
@@ -83,7 +83,7 @@ class ZapierIntegration extends IntegrationPartner {
 	}
 }
 
-class HubspotIntegration extends IntegrationPartner {
+export class HubspotIntegration extends IntegrationPartner {
 	constructor() {
 		const options: IIntegrationPartner = {
 			name: "hubspot",
@@ -106,8 +106,8 @@ class HubspotIntegration extends IntegrationPartner {
 }
 
 
-class IntegrationPartnerFactory {
-	getIntegrationPartners(): Array<IntegrationPartner> {
+export class IntegrationPartnerFactory {
+	static getIntegrationPartners(): Array<IntegrationPartner> {
 		return [
 			new SalesforceIntegration(),
 			new ZapierIntegration(),
