@@ -1,0 +1,40 @@
+.container {
+	background-color: #F8F9FA;
+	margin: 8px 0;
+	padding: 24px 16px;
+	border-radius: 8px;
+	border-color: #E6E8EA;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.tileRow {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.logoContainer {
+	min-width: 80px;
+	display: flex;
+}
+
+.textContainer {
+	margin: 0 16px;
+	font-weight: 300;
+}
+
+.title {
+	font-weight: 700;
+
+}
+
+.connectButton {
+	width: 160px;
+	height: 32px;
+	background-color: #F55A57;
+	color: white;
+	border-radius: 8px;
+	border-width: 0px;
+	font-weight: 600;
+}

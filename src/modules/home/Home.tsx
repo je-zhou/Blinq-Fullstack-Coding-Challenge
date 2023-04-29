@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from "./Home.module.css";
 import Navbar from '@components/Navbar/Navbar';
-import Body from '@components/Body/Body';
+import Content from '@components/Content/Content';
 
 export default function Home() {
 	return (
 		<main className={styles.main}>
 			<Navbar></Navbar>
-			<Body></Body>
+			<Content></Content>
 
 			{/* <h1 className={styles.title}>Blinq</h1>
 
