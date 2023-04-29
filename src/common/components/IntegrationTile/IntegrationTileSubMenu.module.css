@@ -1,13 +1,11 @@
-.container {
-	margin: 8px 0;
-}
-
-.tileBackground {
+.subMenuContainer {
 	background-color: #F8F9FA;
+	margin: 0 24px;
 	padding: 24px 16px;
-	border-radius: 8px;
+	border-radius: 0 0 8px 8px;
 	border-color: #E6E8EA;
 	border-style: solid;
+	border-top: 0;
 	border-width: 1px;
 }
 
