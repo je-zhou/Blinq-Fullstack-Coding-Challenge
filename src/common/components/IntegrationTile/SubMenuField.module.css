@@ -1,0 +1,22 @@
+.fieldContainer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 656px;
+	padding: 0 0 16px 0;
+}
+
+.fieldTitle {
+	font-size: smaller;
+	opacity: 0.4;
+}
+
+.field {
+	border-radius: 8px;
+	box-shadow: none;
+	border-color: #E6E8EA;
+	border-style: solid;
+	border-top: 0;
+	border-width: 1px;
+	padding: 8px;
+}

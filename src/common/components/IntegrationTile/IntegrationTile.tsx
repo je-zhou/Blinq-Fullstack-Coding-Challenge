@@ -1,6 +1,7 @@
 import { IntegrationPartner } from '@utils/integrationPartners'
 import React, { useState } from 'react'
 import styles from './IntegrationTile.module.css';
+import buttonStyles from "@styles/Button.module.css";
 import Image from 'next/image';
 import IntegrationTileSubMenu from './IntegrationTileSubMenu';
 
@@ -28,7 +29,7 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 						<p>{integrationPartner.description}</p>
 					</div>
 					<div>
-						<button className={`${styles.button} ${isOpen ? styles.back : styles.connect}`} onClick={toggleSubMenu}>
+						<button className={`${buttonStyles.button} ${isOpen ? buttonStyles.back : buttonStyles.connect}`} onClick={toggleSubMenu}>
 							{isOpen ? "Back" : "Connect"}
 						</button>
 					</div>
