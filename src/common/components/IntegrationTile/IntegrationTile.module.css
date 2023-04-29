@@ -31,10 +31,16 @@
 
 .connectButton {
 	width: 160px;
-	height: 32px;
+	height: 36px;
 	background-color: #F55A57;
 	color: white;
 	border-radius: 8px;
 	border-width: 0px;
 	font-weight: 600;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+}
+
+.connectButton:hover {
+	background-color: #e79b9a;
 }
