@@ -6,6 +6,9 @@
 	font-weight: 600;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .button:hover {
@@ -19,5 +22,10 @@
 
 .connect {
 	background-color: #F55A57;
-	color: white;
+	color: #F8F9FA;
+}
+
+.disconnect {
+	background-color: #35393B;
+	color: #F8F9FA;
 }
