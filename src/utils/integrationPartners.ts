@@ -23,8 +23,19 @@ export class IntegrationPartner {
 		this.requiredParams = options.requiredParams;
 	}
 
-	async connect(): Promise<void> {
-		console.log("Connecting!");
+	async connect(paramVals: { [key: string]: string }): Promise<void> {
+
+		console.log(`Trying to integrate with ${this.name}`);
+		
+		const response = await fetch(`/api/integrations/${this.name}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(paramVals),
+			});
+
 	}
 
 	async disconnect(): Promise<void> {
@@ -50,14 +61,6 @@ export class SalesforceIntegration extends IntegrationPartner {
 
 		super(options);
 	}
-
-	async connect(): Promise<void> {
-
-	}
-
-	async disconnect(): Promise<void> {
-
-	}
 }
 
 
@@ -73,14 +76,6 @@ export class ZapierIntegration extends IntegrationPartner {
 
 		super(options);
 	}
-
-	async connect(): Promise<void> {
-
-	}
-
-	async disconnect(): Promise<void> {
-
-	}
 }
 
 export class HubspotIntegration extends IntegrationPartner {
@@ -94,14 +89,6 @@ export class HubspotIntegration extends IntegrationPartner {
 		}
 
 		super(options);
-	}
-
-	async connect(): Promise<void> {
-
-	}
-
-	async disconnect(): Promise<void> {
-
 	}
 }
 

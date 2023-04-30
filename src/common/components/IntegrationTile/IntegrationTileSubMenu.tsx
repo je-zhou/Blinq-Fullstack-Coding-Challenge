@@ -31,8 +31,10 @@ export default function IntegrationTileSubMenu({ integrationPartner }: IIntegrat
 		// Start loading UI
 		setIsLoading(true);
 
+		// Mocking a delay to replicate real world lag
 		setTimeout(() => {
-			console.log('Mocking a delay to connect with the integration partner');
+			integrationPartner.connect(paramVals);
+
 			setIsLoading(false);
 		}, 1000);
 	}
