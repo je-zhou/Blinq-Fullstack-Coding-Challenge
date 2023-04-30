@@ -8,8 +8,13 @@ interface ISubMenuField {
 export default function SubMenuField({ fieldName }: ISubMenuField) {
 	return (
 		<div className={styles.fieldContainer}>
-			<p className={styles.fieldTitle}>{fieldName}</p>
-			<input className={styles.field} type="text" name="name" />
+			<label className={styles.fieldTitle}>{fieldName}</label>
+			<input
+				required minLength={8} // Very simple form validation
+				className={styles.field}
+				type="text"
+				name="name"
+			/>
 		</div>
 	)
 }

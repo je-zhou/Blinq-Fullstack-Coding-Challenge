@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEventHandler, useState } from 'react'
 import styles from "./IntegrationTileSubMenu.module.css";
 import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
@@ -14,9 +14,12 @@ export default function IntegrationTileSubMenu({ requiredParams }: IIntegrationT
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	function onClick() {
-		setIsLoading(true);
+	function onSubmit(event: any) {
+		// Prevent form from refreshing page
+		event.preventDefault()
 
+		// Start loading UI
+		setIsLoading(true);
 		setTimeout(() => {
 			console.log('Mocking a delay to connect with the integration partner');
 			setIsLoading(false);
@@ -24,14 +27,16 @@ export default function IntegrationTileSubMenu({ requiredParams }: IIntegrationT
 	}
 
 	return (
-		<div className={styles.subMenuContainer}>
+		<form className={styles.subMenuContainer} onSubmit={onSubmit}>
 			{fields}
+
 			<button
 				className={`${buttonStyles.button} ${isLoading ? buttonStyles.loading : buttonStyles.connect}`}
-				onClick={onClick}>
-				{isLoading ? <LoadingIndicator/> : "Connect"}
+				type='submit'
+			>
+				{isLoading ? <LoadingIndicator /> : "Connect"}
 			</button>
-		</div>
+		</form>
 	)
 }
 
