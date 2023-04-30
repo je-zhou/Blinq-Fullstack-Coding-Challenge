@@ -3,23 +3,34 @@ import styles from "./IntegrationTileSubMenu.module.css";
 import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
+import { IntegrationPartner } from '@utils/integrationPartners';
 
 
 interface IIntegrationTileSubMenu {
-	requiredParams: Array<string>
+	integrationPartner: IntegrationPartner
 }
 
-export default function IntegrationTileSubMenu({ requiredParams }: IIntegrationTileSubMenu) {
-	const fields = requiredParams.map((field) => <SubMenuField fieldName={field} />)
+export default function IntegrationTileSubMenu({ integrationPartner }: IIntegrationTileSubMenu) {
 
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false); // Loading state
 
+	// Field values will be recorded in an Object: key - Field Name, value - Value
+	// This Object will then be submitted to the API to try connect with the Integration Partner
+	const [paramVals, setParamVals] = useState<{ [key: string]: string }>({});
+
+	// Turning the list of required parameters into Field Components
+	const fields = integrationPartner.getParamsList().map((field) =>
+		<SubMenuField fieldName={field} setParamVals={setParamVals} />
+	);
+
+	// Once the field have passed client side form validation, send an API request to connect to the Integration Partner
 	function onSubmit(event: any) {
 		// Prevent form from refreshing page
 		event.preventDefault()
 
 		// Start loading UI
 		setIsLoading(true);
+
 		setTimeout(() => {
 			console.log('Mocking a delay to connect with the integration partner');
 			setIsLoading(false);
@@ -28,8 +39,9 @@ export default function IntegrationTileSubMenu({ requiredParams }: IIntegrationT
 
 	return (
 		<form className={styles.subMenuContainer} onSubmit={onSubmit}>
+			{/* Fields */}
 			{fields}
-
+			{/* Connect Button */}
 			<button
 				className={`${buttonStyles.button} ${isLoading ? buttonStyles.loading : buttonStyles.connect}`}
 				type='submit'
@@ -39,4 +51,3 @@ export default function IntegrationTileSubMenu({ requiredParams }: IIntegrationT
 		</form>
 	)
 }
-
