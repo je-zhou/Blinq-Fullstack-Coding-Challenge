@@ -26,7 +26,7 @@ export class IntegrationPartner {
 	async connect(paramVals: { [key: string]: string }): Promise<void> {
 
 		console.log(`Trying to integrate with ${this.name}`);
-		
+
 		const response = await fetch(`/api/integrations/${this.name}`,
 			{
 				method: "POST",
@@ -35,7 +35,6 @@ export class IntegrationPartner {
 				},
 				body: JSON.stringify(paramVals),
 			});
-
 	}
 
 	async disconnect(): Promise<void> {

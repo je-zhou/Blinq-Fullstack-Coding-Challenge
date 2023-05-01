@@ -23,20 +23,17 @@ export default function IntegrationTileSubMenu({ integrationPartner }: IIntegrat
 		<SubMenuField fieldName={field} setParamVals={setParamVals} />
 	);
 
-	// Once the field have passed client side form validation, send an API request to connect to the Integration Partner
-	function onSubmit(event: any) {
+	// Once the fields have passed client side form validation, send an API request to connect to the Integration Partner
+	async function onSubmit(event: any) {
 		// Prevent form from refreshing page
 		event.preventDefault()
 
 		// Start loading UI
 		setIsLoading(true);
 
-		// Mocking a delay to replicate real world lag
-		setTimeout(() => {
-			integrationPartner.connect(paramVals);
+		await integrationPartner.connect(paramVals);
 
-			setIsLoading(false);
-		}, 1000);
+		setIsLoading(false);
 	}
 
 	return (

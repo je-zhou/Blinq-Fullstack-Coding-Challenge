@@ -1,3 +1,4 @@
+import delay from "@utils/delay";
 import { Contact } from "database";
 
 export interface IIntegrationClient {
@@ -15,7 +16,9 @@ export class IntegrationClient {
 		this.requiredParams = options.requiredParams;
 	}
 
-	connect(passedParameters: { [key: string]: string }, contactDetails: Array<Contact>): boolean {
+	async connect(passedParameters: { [key: string]: string }, contactDetails: Array<Contact>): Promise<boolean> {
+		// Mocking a delay to replicate real world lag
+		await delay(1000);
 
 		for (let i = 0; i < this.requiredParams.length; i++) {
 			const param = this.requiredParams[i];
@@ -28,10 +31,13 @@ export class IntegrationClient {
 
 		// syncContactDetails(contactDetails)
 
-		return true;
+		return false; // TODO:: For mocking purposes, we will return true 70% of the time and false 30% of the time
 	}
 
-	disconnect(passedParameters: { [key: string]: string }): boolean {
+	async disconnect(passedParameters: { [key: string]: string }): Promise<boolean> {
+
+		// Mocking a delay to replicate real world lag
+		await delay(1000);
 
 		// // Search database for the record matching the passed parameters 
 
@@ -90,7 +96,10 @@ export class HubspotIntegrationClient extends IntegrationClient {
 
 	// Hubspot requires Blinq to specify which fields the contact details should be mapped to
 	// To accomodate we will override the default connect function and pass new one specific for Hubspot
-	connect(passedParameters: { [key: string]: string }, contactDetails: Array<Contact>): boolean {
+	async connect(passedParameters: { [key: string]: string }, contactDetails: Array<Contact>): Promise<boolean> {
+
+		// Mocking a delay to replicate real world lag
+		await delay(1000);
 
 		for (let i = 0; i < this.requiredParams.length; i++) {
 			const param = this.requiredParams[i];
