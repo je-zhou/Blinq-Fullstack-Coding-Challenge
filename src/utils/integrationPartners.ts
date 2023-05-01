@@ -6,6 +6,18 @@ export interface IIntegrationPartner {
 	requiredParams: { [key: string]: string | undefined }
 }
 
+
+type ConnectionSuccess = {
+	message: string
+}
+
+type ConnectionFailure = {
+	status: number,
+	message: string
+}
+
+export type ConnectionOutcome = ConnectionSuccess | ConnectionFailure
+
 // Base Class
 
 export class IntegrationPartner {
@@ -23,7 +35,7 @@ export class IntegrationPartner {
 		this.requiredParams = options.requiredParams;
 	}
 
-	async connect(paramVals: { [key: string]: string }): Promise<void> {
+	async connect(paramVals: { [key: string]: string }): Promise<ConnectionOutcome> {
 
 		console.log(`Trying to integrate with ${this.name}`);
 
@@ -35,6 +47,17 @@ export class IntegrationPartner {
 				},
 				body: JSON.stringify(paramVals),
 			});
+
+		const status = response.status;
+		const json = await response.json();
+
+		if (status === 200) {
+			const outcome: ConnectionSuccess = { message: json.outcome };
+			return outcome;
+		} else {
+			const outcome: ConnectionFailure = { status: status, message: json.outcome };
+			return outcome;
+		}
 	}
 
 	async disconnect(): Promise<void> {

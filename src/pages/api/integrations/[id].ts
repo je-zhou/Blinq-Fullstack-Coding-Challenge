@@ -29,11 +29,13 @@ export default async function handler(
 
 				// If success, return status 200, and a JSON message saying success!
 				if (connectionOutcome) {
-					res.status(200).json({ outcome: "Connection Success!" });
+					res.status(200).json({ outcome: "Connection Success!: Integration Complete" });
 				} else {
 					// If fail, return status 401, and a JSON message detailing the error
-					res.status(401).json({ outcome: "Connection Failure!" })
+					res.status(402).json({ outcome: "Connection Failed: Client Side Error" })
 				}
+			} else {
+				res.status(401).json({ outcome: "Connection Failed: Invalid Integration Client" });
 			}
 			break;
 		default:

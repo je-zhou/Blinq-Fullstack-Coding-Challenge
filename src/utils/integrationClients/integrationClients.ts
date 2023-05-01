@@ -31,7 +31,7 @@ export class IntegrationClient {
 
 		// syncContactDetails(contactDetails)
 
-		return false; // TODO:: For mocking purposes, we will return true 70% of the time and false 30% of the time
+		return true; // TODO:: For mocking purposes, we will return true 70% of the time and false 30% of the time
 	}
 
 	async disconnect(passedParameters: { [key: string]: string }): Promise<boolean> {
