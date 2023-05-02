@@ -39,7 +39,11 @@ export class IntegrationPartner {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(paramVals),
+				body: JSON.stringify({
+					type: "connect",
+					params: paramVals,
+				}
+				),
 			});
 
 		const status = response.status;
@@ -49,12 +53,39 @@ export class IntegrationPartner {
 		return { status: status, message: json.outcome }
 	}
 
-	async disconnect(): Promise<void> {
-		console.log("Disconnecting!");
+	async disconnect(paramVals: { [key: string]: string }): Promise<APIOutcome> {
+		console.log(`Trying to disconnect from ${this.name}`);
+
+		// Send a request to Blinq's API route and pass the collected parameters to try disconnect from external client
+		const response = await fetch(`/api/integrations/${this.name}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					type: "disconnect",
+					params: paramVals,
+				}
+				),
+			});
+
+		const status = response.status;
+		const json = await response.json();
+
+		// return the API outcome
+		return { status: status, message: json.outcome }
 	}
 
 	getParamsList(): Array<string> {
 		return Object.keys(this.requiredParams);
+	}
+
+	// Clear the saved param data
+	resetParams(): void {
+		Object.keys(this.requiredParams).forEach((key) => {
+			this.requiredParams[key] = "";
+		})
 	}
 }
 

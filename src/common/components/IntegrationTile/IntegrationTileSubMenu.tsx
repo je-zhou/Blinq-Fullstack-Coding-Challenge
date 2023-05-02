@@ -9,11 +9,11 @@ import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners';
 interface IIntegrationTileSubMenu {
 	integrationPartner: IntegrationPartner,
 	toggleSubMenu: Function,
+	isLoading: boolean,
+	setIsLoading: Function,
 }
 
-export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMenu }: IIntegrationTileSubMenu) {
-
-	const [isLoading, setIsLoading] = useState(false); // Loading state
+export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMenu, isLoading, setIsLoading }: IIntegrationTileSubMenu) {
 
 	// Field values will be recorded in an Object: key - Field Name, value - Value
 	// This Object will then be submitted to the API to try connect with the Integration Partner
@@ -22,18 +22,13 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 	// Turning the list of required parameters into Field Components
 	const fields = integrationPartner.getParamsList().map((field) => {
 		return <SubMenuField key={field} fieldName={field} paramVals={paramVals} setParamVals={setParamVals} />
-	}
-	);
+	});
 
-	// Once the fields have passed client side form validation, send an API request to connect to the Integration Partner
 	async function onSubmit(event: any) {
-		// Prevent form from refreshing page
-		event.preventDefault()
 
-		console.log(paramVals)
+		event.preventDefault() // Prevent form from refreshing page
 
-		// Start loading UI
-		setIsLoading(true);
+		setIsLoading(true); // Start loading UI
 
 		// Pass in the field values as the required parameters to connect to the integration partner
 		const outcome: APIOutcome = await integrationPartner.connect(paramVals);

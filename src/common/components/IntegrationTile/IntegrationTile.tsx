@@ -1,9 +1,10 @@
-import { IntegrationPartner } from '@utils/integrationPartners'
+import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners'
 import React, { useState } from 'react'
 import styles from './IntegrationTile.module.css';
 import buttonStyles from "@styles/Button.module.css";
 import Image from 'next/image';
 import IntegrationTileSubMenu from './IntegrationTileSubMenu';
+import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 
 interface IIntegrationTile {
 	integrationPartner: IntegrationPartner
@@ -11,12 +12,34 @@ interface IIntegrationTile {
 
 export default function IntegrationTile({ integrationPartner }: IIntegrationTile) {
 
+	const [isLoading, setIsLoading] = useState(false); // Loading state
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleSubMenu = () => {
 		setIsOpen(!isOpen);
 	};
 
+	async function disconnect() {
+
+		setIsLoading(true); // Start loading UI
+
+		// Pass in the field values as the required parameters to connect to the integration partner
+		const outcome: APIOutcome = await integrationPartner.disconnect(integrationPartner.requiredParams);
+
+		if (outcome.status === 200) {
+			console.log(outcome.message);
+			integrationPartner.isConnected = false;
+			integrationPartner.resetParams();
+			toggleSubMenu();
+		} else {
+			console.log(outcome.message)
+		}
+
+		setIsLoading(false);
+	}
+
+	// Logic for button ui
 	let buttonClassType = isOpen ? buttonStyles.back :
 		integrationPartner.isConnected ? buttonStyles.manage :
 			buttonStyles.connect
@@ -47,12 +70,12 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 						</div>
 						<p>{integrationPartner.description}</p>
 					</div>
-					{/* Connect Button */}
+					{/* Buttons */}
 					<div className={styles.buttonContainer}>
 						{
 							integrationPartner.isConnected && isOpen ?
-								<button className={`${buttonStyles.button} ${buttonStyles.disconnect}`} onClick={toggleSubMenu}>
-									Disconnect
+								<button className={`${buttonStyles.button} ${buttonStyles.disconnect}`} onClick={disconnect}>
+									{isLoading ? <LoadingIndicator /> : "Disconnect"}
 								</button> :
 								<></>
 						}
@@ -66,7 +89,7 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 			{/* Submenu */}
 			{isOpen && (
 				<div className="sub-menu">
-					<IntegrationTileSubMenu integrationPartner={integrationPartner} toggleSubMenu={toggleSubMenu} />
+					<IntegrationTileSubMenu integrationPartner={integrationPartner} toggleSubMenu={toggleSubMenu} isLoading={isLoading} setIsLoading={setIsLoading} />
 				</div>
 			)}
 		</div>
