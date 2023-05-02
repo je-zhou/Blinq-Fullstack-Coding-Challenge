@@ -1,22 +1,15 @@
+export interface APIOutcome {
+	status: number,
+	message: string
+}
+
 export interface IIntegrationPartner {
 	name: string;
 	description: string;
 	imgPath: string;
 	isConnected: boolean;
-	requiredParams: { [key: string]: string | undefined }
+	requiredParams: { [key: string]: string }
 }
-
-
-type ConnectionSuccess = {
-	message: string
-}
-
-type ConnectionFailure = {
-	status: number,
-	message: string
-}
-
-export type ConnectionOutcome = ConnectionSuccess | ConnectionFailure
 
 // Base Class
 
@@ -25,7 +18,7 @@ export class IntegrationPartner {
 	description: string;
 	imgPath: string;
 	isConnected: boolean;
-	requiredParams: { [key: string]: string | undefined }
+	requiredParams: { [key: string]: string }
 
 	constructor(options: IIntegrationPartner) {
 		this.name = options.name;
@@ -35,10 +28,11 @@ export class IntegrationPartner {
 		this.requiredParams = options.requiredParams;
 	}
 
-	async connect(paramVals: { [key: string]: string }): Promise<ConnectionOutcome> {
+	async connect(paramVals: { [key: string]: string }): Promise<APIOutcome> {
 
 		console.log(`Trying to integrate with ${this.name}`);
 
+		// Send a request to Blinq's API route and pass the collected parameters to try connect to external client
 		const response = await fetch(`/api/integrations/${this.name}`,
 			{
 				method: "POST",
@@ -51,13 +45,8 @@ export class IntegrationPartner {
 		const status = response.status;
 		const json = await response.json();
 
-		if (status === 200) {
-			const outcome: ConnectionSuccess = { message: json.outcome };
-			return outcome;
-		} else {
-			const outcome: ConnectionFailure = { status: status, message: json.outcome };
-			return outcome;
-		}
+		// return the API outcome
+		return { status: status, message: json.outcome }
 	}
 
 	async disconnect(): Promise<void> {
@@ -78,7 +67,7 @@ export class SalesforceIntegration extends IntegrationPartner {
 			description: "Salesforce is a cloud-based customer relationship management (CRM) software that helps businesses manage their sales, marketing, and customer service activities. It allows companies to streamline their operations and improve their customer relationships.",
 			imgPath: "/assets/integration_partners/salesforce.png",
 			isConnected: false,
-			requiredParams: { client_id: undefined, client_secret: undefined },
+			requiredParams: { client_id: "", client_secret: "" },
 		}
 
 		super(options);
@@ -93,7 +82,7 @@ export class ZapierIntegration extends IntegrationPartner {
 			description: "Zapier is a web-based automation tool that allows users to connect various applications and automate tasks between them without any coding. It enables businesses to streamline their workflows and boost productivity.",
 			imgPath: "/assets/integration_partners/zapier.png",
 			isConnected: false,
-			requiredParams: { api_key: undefined },
+			requiredParams: { api_key: "" },
 		}
 
 		super(options);
@@ -107,7 +96,7 @@ export class HubspotIntegration extends IntegrationPartner {
 			description: "Hubspot is an all-in-one inbound marketing, sales, and customer service software that helps businesses attract, engage, and delight customers. It offers a suite of tools for lead generation, lead management, social media marketing, email marketing, and more, all in one platform.",
 			imgPath: "/assets/integration_partners/hubspot.png",
 			isConnected: false,
-			requiredParams: { tenant_domain: undefined, client_id: undefined, client_secret: undefined, field_mappings: undefined },
+			requiredParams: { tenant_domain: "", client_id: "", client_secret: "", field_mappings: "" },
 		}
 
 		super(options);

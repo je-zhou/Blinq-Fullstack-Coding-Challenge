@@ -10,12 +10,21 @@ interface IIntegrationTile {
 }
 
 export default function IntegrationTile({ integrationPartner }: IIntegrationTile) {
-	
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleSubMenu = () => {
 		setIsOpen(!isOpen);
 	};
+
+	let buttonClassType = isOpen ? buttonStyles.back :
+		integrationPartner.isConnected ? buttonStyles.manage :
+			buttonStyles.connect
+
+	const buttonMsg =
+		isOpen ? "Back" :
+			integrationPartner.isConnected ? "Manage" :
+				"Connect"
 
 	return (
 		<div className={styles.container}>
@@ -27,22 +36,37 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 					</div>
 					{/* Title and Description */}
 					<div className={styles.textContainer}>
-						<p className={styles.title}>{integrationPartner.name}</p>
+						<div className={styles.tileRow}>
+							<p className={styles.title}>
+								{integrationPartner.name}
+							</p>
+							{integrationPartner.isConnected ?
+								<p className={styles.connectedText}> • Connected</p> :
+								<></>
+							}
+						</div>
 						<p>{integrationPartner.description}</p>
 					</div>
 					{/* Connect Button */}
-					<div>
-						<button className={`${buttonStyles.button} ${isOpen ? buttonStyles.back : buttonStyles.connect}`} onClick={toggleSubMenu}>
-							{isOpen ? "Back" : "Connect"}
+					<div className={styles.buttonContainer}>
+						{
+							integrationPartner.isConnected && isOpen ?
+								<button className={`${buttonStyles.button} ${buttonStyles.disconnect}`} onClick={toggleSubMenu}>
+									Disconnect
+								</button> :
+								<></>
+						}
+						<button className={`${buttonStyles.button} ${buttonClassType}`} onClick={toggleSubMenu}>
+							{buttonMsg}
 						</button>
-					</div>
 
+					</div>
 				</div>
 			</div>
 			{/* Submenu */}
 			{isOpen && (
 				<div className="sub-menu">
-					<IntegrationTileSubMenu integrationPartner={integrationPartner} />
+					<IntegrationTileSubMenu integrationPartner={integrationPartner} toggleSubMenu={toggleSubMenu} />
 				</div>
 			)}
 		</div>

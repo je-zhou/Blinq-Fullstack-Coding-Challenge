@@ -2,9 +2,11 @@
 	padding: 64px;
 	max-width: 1200px;
 	width: 100%;
+	height: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: left;
+	overflow: clip;
 }
 
 .title {

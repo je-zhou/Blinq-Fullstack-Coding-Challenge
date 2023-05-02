@@ -3,10 +3,11 @@ import styles from './SubMenuField.module.css'
 
 interface ISubMenuField {
 	fieldName: string
+	paramVals: { [key: string]: string }
 	setParamVals: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>
 }
 
-export default function SubMenuField({ fieldName, setParamVals }: ISubMenuField) {
+export default function SubMenuField({ fieldName, paramVals, setParamVals }: ISubMenuField) {
 
 	// Update the value for this fieldName in the object holding the parameter values
 	function changeFieldVal(val: string) {
@@ -15,7 +16,7 @@ export default function SubMenuField({ fieldName, setParamVals }: ISubMenuField)
 			return prevVals;
 		})
 	}
-
+	
 	return (
 		<div className={styles.fieldContainer}>
 			<label className={styles.fieldTitle}>{fieldName}</label>
@@ -24,6 +25,7 @@ export default function SubMenuField({ fieldName, setParamVals }: ISubMenuField)
 				className={styles.field}
 				type="text"
 				name="name"
+				defaultValue={paramVals[fieldName] ?? ""}
 				onChange={(event) => changeFieldVal(event.target.value)}
 			/>
 		</div>

@@ -16,22 +16,21 @@ export default async function handler(
 
 	switch (method) {
 		case 'POST':
-			// Get the right Integration Client based on id passed to the API call
-			const client = IntegrationClientsFactory.getClientByID(id);
+
+			const client = IntegrationClientsFactory.getClientByID(id); // Get the right Integration Client based on id passed to the API route
 
 			// Check if the id passed in is a valid Integration Partner
 			if (client) {
-				// Get the current User's contact details so we can pass to third party client to sync
-				const contacts = Database.getContacts();
 
-				// Use the provided parameters to try sync and await outcome
-				const connectionOutcome = await client.connect(body, contacts);
+				const contacts = Database.getContacts(); // Get the current User's contacts to sync with third party client
 
-				// If success, return status 200, and a JSON message saying success!
+				const connectionOutcome = await client.connect(body, contacts); // Use the provided parameters to try sync and await outcome
+
+				// If success, return status 200
 				if (connectionOutcome) {
 					res.status(200).json({ outcome: "Connection Success!: Integration Complete" });
 				} else {
-					// If fail, return status 401, and a JSON message detailing the error
+					// If fail due to client side error, return status 402
 					res.status(402).json({ outcome: "Connection Failed: Client Side Error" })
 				}
 			} else {
@@ -39,8 +38,8 @@ export default async function handler(
 			}
 			break;
 		default:
-			res.setHeader('Allow', ['POST']);
-			res.status(405).end(`Method ${method} Not Allowed`);
+			res.setHeader('Allow',  ['POST']);
+			res.status(403).end(`Method ${method} Not Allowed`);
 			break;
 	}
 }

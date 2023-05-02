@@ -4,6 +4,7 @@
 	border-radius: 8px;
 	border-width: 0px;
 	font-weight: 600;
+	margin: 8px 0;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	display: flex;
@@ -16,6 +17,11 @@
 }
 
 .back {
+	background-color: #E6E8EA;
+	color: #8C8C8C;
+}
+
+.manage {
 	background-color: #E6E8EA;
 	color: #8C8C8C;
 }
