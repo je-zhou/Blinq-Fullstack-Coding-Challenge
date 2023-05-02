@@ -4,7 +4,7 @@ import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners';
-
+import { toast } from 'react-hot-toast';
 
 interface IIntegrationTileSubMenu {
 	integrationPartner: IntegrationPartner,
@@ -27,22 +27,23 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 	async function onSubmit(event: any) {
 
 		event.preventDefault() // Prevent form from refreshing page
-
-		setIsLoading(true); // Start loading UI
+		setIsLoading(true);
 
 		// Pass in the field values as the required parameters to connect to the integration partner
 		const outcome: APIOutcome = await integrationPartner.connect(paramVals);
 
 		if (outcome.status === 200) {
-			console.log(outcome.message);
 			integrationPartner.isConnected = true;
 			integrationPartner.requiredParams = paramVals
 			toggleSubMenu();
+			toast.success(outcome.message, {
+				position: "top-center",
+			})
 		} else {
-			console.log(outcome.message)
+			toast.error(`Error code: ${outcome.status} - ${outcome.message}`)
 		}
 
-
+		console.log(outcome.message);
 		setIsLoading(false);
 	}
 

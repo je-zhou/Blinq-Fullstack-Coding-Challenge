@@ -127,7 +127,7 @@ export class HubspotIntegration extends IntegrationPartner {
 			description: "Hubspot is an all-in-one inbound marketing, sales, and customer service software that helps businesses attract, engage, and delight customers. It offers a suite of tools for lead generation, lead management, social media marketing, email marketing, and more, all in one platform.",
 			imgPath: "/assets/integration_partners/hubspot.png",
 			isConnected: false,
-			requiredParams: { tenant_domain: "", client_id: "", client_secret: "", field_mappings: "" },
+			requiredParams: { tenant_domain: "", client_id: "", client_secret: "" },
 		}
 
 		super(options);

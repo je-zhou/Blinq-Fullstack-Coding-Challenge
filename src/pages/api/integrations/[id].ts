@@ -41,10 +41,10 @@ export default async function handler(
 
 					// If success, return status 200
 					if (connectionOutcome) {
-						res.status(200).json({ outcome: "Disconnection Success!" });
+						res.status(200).json({ outcome: "Successfully Disconnected" });
 					} else {
 						// If fail due to client side error, return status 403
-						res.status(403).json({ outcome: "Disconnection Failed: Client Side Error" })
+						res.status(404).json({ outcome: "Failed to Disconnect: Client Side Error" })
 					}
 				} else {
 					res.status(406).json({ outcome: "Error: Invalid connection type. Please pass either 'connect' or 'disconnect' as the value for the key 'type'" })

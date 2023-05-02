@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Content.module.css';
 import { IntegrationPartnerFactory } from '@utils/integrationPartners';
 import IntegrationTile from '@components/IntegrationTile/IntegrationTile';
+import { Toaster } from 'react-hot-toast';
 
 export default function Content() {
 	// Import the integration partners
@@ -10,6 +11,7 @@ export default function Content() {
 
 	return (
 		<div className={styles.content}>
+			<Toaster />
 			<h1 className={styles.title}>Integrations</h1>
 			{
 				integrationTiles

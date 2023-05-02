@@ -5,6 +5,7 @@ import buttonStyles from "@styles/Button.module.css";
 import Image from 'next/image';
 import IntegrationTileSubMenu from './IntegrationTileSubMenu';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
+import { toast } from 'react-hot-toast';
 
 interface IIntegrationTile {
 	integrationPartner: IntegrationPartner
@@ -12,8 +13,7 @@ interface IIntegrationTile {
 
 export default function IntegrationTile({ integrationPartner }: IIntegrationTile) {
 
-	const [isLoading, setIsLoading] = useState(false); // Loading state
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleSubMenu = () => {
@@ -28,18 +28,21 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 		const outcome: APIOutcome = await integrationPartner.disconnect(integrationPartner.requiredParams);
 
 		if (outcome.status === 200) {
-			console.log(outcome.message);
 			integrationPartner.isConnected = false;
 			integrationPartner.resetParams();
 			toggleSubMenu();
+			toast.success(outcome.message, {
+				position: "top-center",
+			})
 		} else {
-			console.log(outcome.message)
+			toast.error(`Error code: ${outcome.status} - ${outcome.message}`)
 		}
 
+		console.log(outcome.message);
 		setIsLoading(false);
 	}
 
-	// Logic for button ui
+	// Logic for button UI
 	let buttonClassType = isOpen ? buttonStyles.back :
 		integrationPartner.isConnected ? buttonStyles.manage :
 			buttonStyles.connect

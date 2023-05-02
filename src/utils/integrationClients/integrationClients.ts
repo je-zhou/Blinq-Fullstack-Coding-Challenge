@@ -87,8 +87,8 @@ export class HubspotIntegrationClient extends IntegrationClient {
 
 	constructor() {
 		const options: IIntegrationClient = {
-			name: "Zapier",
-			requiredParams: ["api_key"],
+			name: "Hubspot",
+			requiredParams: ["tenant_domain", "client_id", "client_secret"],
 		}
 
 		super(options);

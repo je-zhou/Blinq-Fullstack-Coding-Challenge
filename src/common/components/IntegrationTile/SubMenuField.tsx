@@ -16,7 +16,7 @@ export default function SubMenuField({ fieldName, paramVals, setParamVals }: ISu
 			return prevVals;
 		})
 	}
-	
+
 	return (
 		<div className={styles.fieldContainer}>
 			<label className={styles.fieldTitle}>{fieldName}</label>
@@ -24,7 +24,7 @@ export default function SubMenuField({ fieldName, paramVals, setParamVals }: ISu
 				required minLength={8} // Very simple form validation
 				className={styles.field}
 				type="text"
-				name="name"
+				name={fieldName}
 				defaultValue={paramVals[fieldName] ?? ""}
 				onChange={(event) => changeFieldVal(event.target.value)}
 			/>
