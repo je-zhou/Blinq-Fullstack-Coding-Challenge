@@ -44,7 +44,6 @@ describe("Hubspot Integration Class working as intended", () => {
 		expect(params).toContain("tenant_domain");
 		expect(params).toContain("client_id");
 		expect(params).toContain("client_secret");
-		expect(params).toContain("field_mappings");
-		expect(params.length).toBe(4);
+		expect(params.length).toBe(3);
 	});
 })

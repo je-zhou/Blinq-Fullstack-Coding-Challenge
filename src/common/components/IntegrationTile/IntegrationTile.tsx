@@ -1,4 +1,4 @@
-import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners'
+import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners/integrationPartners'
 import React, { useState } from 'react'
 import styles from './IntegrationTile.module.css';
 import buttonStyles from "@styles/Button.module.css";

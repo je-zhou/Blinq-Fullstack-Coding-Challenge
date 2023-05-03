@@ -3,7 +3,7 @@ import styles from "./IntegrationTileSubMenu.module.css";
 import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
-import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners';
+import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners/integrationPartners';
 import { toast } from 'react-hot-toast';
 
 interface IIntegrationTileSubMenu {
