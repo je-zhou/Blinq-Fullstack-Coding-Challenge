@@ -1,4 +1,4 @@
-import delay from "../delay";
+import { delay } from "../utils";
 import { Contact } from "database";
 
 export interface IIntegrationClient {

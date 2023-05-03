@@ -8,12 +8,6 @@ export default function Home() {
 		<main className={styles.main}>
 			<Navbar></Navbar>
 			<Content></Content>
-
-			{/* <h1 className={styles.title}>Blinq</h1>
-
-			<p className={styles.description}>Manage your integrations here</p>
-
-			<div className={styles.grid}>Build here</div> */}
 		</main>
 	)
 }

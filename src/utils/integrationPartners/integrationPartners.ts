@@ -1,4 +1,4 @@
-import { Contact, Database } from "database";
+import { Database } from "database";
 
 export interface APIOutcome {
 	status: number,
