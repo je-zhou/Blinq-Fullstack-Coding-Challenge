@@ -5,6 +5,7 @@ import SubMenuField from './SubMenuField';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners/integrationPartners';
 import { toast } from 'react-hot-toast';
+import deepCopy from '@utils/deepCopy';
 
 interface IIntegrationTileSubMenu {
 	integrationPartner: IntegrationPartner,
@@ -17,16 +18,12 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 
 	// Field values will be recorded in an Object: key - Field Name, value - Value
 	// This Object will then be submitted to the API to try connect with the Integration Partner
-	const [paramVals, setParamVals] = useState<{ [key: string]: string }>({});
+	const [paramVals, setParamVals] = useState<{ [key: string]: string }>(deepCopy(integrationPartner.requiredParams));
 
 	// Turning the list of required parameters into Field Components
 	const fields = integrationPartner.getParamsList().map((field) => {
 		return <SubMenuField key={field} fieldName={field} paramVals={paramVals} setParamVals={setParamVals} />
 	});
-
-	useEffect(() => {
-		setParamVals(Object.assign(integrationPartner.requiredParams))
-	})
 
 	async function onSubmit(event: any) {
 
@@ -38,7 +35,7 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 
 		if (outcome.status === 200) {
 			integrationPartner.isConnected = true;
-			integrationPartner.requiredParams = { ...paramVals }
+			integrationPartner.requiredParams = paramVals
 			toggleSubMenu();
 			toast.success(outcome.message)
 		} else {

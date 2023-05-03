@@ -6,6 +6,7 @@ import Image from 'next/image';
 import IntegrationTileSubMenu from './IntegrationTileSubMenu';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 import { toast } from 'react-hot-toast';
+import deepCopy from '@utils/deepCopy';
 
 interface IIntegrationTile {
 	integrationPartner: IntegrationPartner
