@@ -56,11 +56,11 @@ As I delved into the project, my attention turned to the structure of the UI and
 To put my thought process into words.
 
 - Available integrations each have their own `IntegrationPartner` class.
-- These classes are mapped to a React component called IntegrationTile. When clicked, it opens a dropdown submenu with fields where users can input the required parameters for each integration.
-- Once the required parameters have been entered, the connect() function sends this information to a dynamic API route that locates the IntegrationClient class (which is meant to mock third-party code) using the id passed to the route.
-- We await the response from the client, and if successful, update the fields in our original IntegrationPartner class, such as isConnected and requiredParams. This, in turn, updates our UI to reflect whether the integration is connected or disconnected.
+- These classes are mapped to a React component called `IntegrationTile`. When clicked, it opens a dropdown submenu with fields where users can input the required parameters for each integration.
+- Once the required parameters have been entered, the `connect()` function sends this information to a dynamic API route that locates the `IntegrationClient` class (which is meant to mock third-party code) using the `id` passed to the route.
+- We await the response from the client, and if successful, update the fields in our original `IntegrationPartner` class, such as `isConnected` and `requiredParams`. This, in turn, updates our UI to reflect whether the integration is connected or disconnected.
 
 ### Improvements
 
-- **Stricter parameter checks:** ATM the fields will accept any string longer than 8 characters. This can be improved by checking the specific requirements from each Integration's API and performing stricter client side form validation before sending out an API request to try integrate
-- **Load user's integration statuses from database:** ATM will reset to no Integrations connected when page refreshes. In production we should save which Integration services the user has connected to in the database and load this into the IntegrationPartner class before rendering the page.
+- **Stricter parameter checks:** At the moment the fields will accept any string longer than 8 characters. This can be improved by checking the specific requirements from each Integration's API and performing stricter client side form validation before sending out an API request to try integrate
+- **Load user's integration statuses from database:** At the moment sate will reset to no Integrations connected when page refreshes. In production we should save which Integration services the user has connected to in a database and load this into the `IntegrationPartner` class before rendering the page.
