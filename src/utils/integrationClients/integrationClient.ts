@@ -58,57 +58,5 @@ export class IntegrationClient {
 	}
 }
 
-// Superclasses
-export class SalesforceIntegrationClient extends IntegrationClient {
 
-	constructor() {
-		const options: IIntegrationClient = {
-			name: "Salesforce",
-			requiredParams: ["client_id", "client_secret"],
-		}
 
-		super(options);
-	}
-}
-
-export class ZapierIntegrationClient extends IntegrationClient {
-
-	constructor() {
-		const options: IIntegrationClient = {
-			name: "Zapier",
-			requiredParams: ["api_key"],
-		}
-
-		super(options);
-	}
-}
-
-export class HubspotIntegrationClient extends IntegrationClient {
-
-	constructor() {
-		const options: IIntegrationClient = {
-			name: "Hubspot",
-			requiredParams: ["tenant_domain", "client_id", "client_secret"],
-		}
-
-		super(options);
-	}
-}
-
-export class IntegrationClientsFactory {
-	static getClientByID(id: string): IntegrationClient | undefined {
-		switch (id) {
-			case "Salesforce":
-				return new SalesforceIntegrationClient();
-			case "Zapier":
-				return new ZapierIntegrationClient();
-			case "Hubspot":
-				return new HubspotIntegrationClient();
-
-			// New Integration Clients to be added here ***
-
-			default:
-				return undefined;
-		}
-	}
-}

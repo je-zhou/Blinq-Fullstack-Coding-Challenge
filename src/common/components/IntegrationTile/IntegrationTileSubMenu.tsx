@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from "./IntegrationTileSubMenu.module.css";
 import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';

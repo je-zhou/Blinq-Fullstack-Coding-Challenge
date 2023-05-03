@@ -1,4 +1,7 @@
-import { HubspotIntegration, IntegrationPartnerFactory, SalesforceIntegration, ZapierIntegration } from "./integrationPartners";
+import { IntegrationPartnerFactory } from "./integrationPartnerFactory";
+import { HubspotIntegration } from "./partners/hubspotIntegrationPartner";
+import { SalesforceIntegration } from "./partners/salesforceIntegrationPartner";
+import { ZapierIntegration } from "./partners/zapierIntegrationPartner";
 
 test("Integration Factory returns the correct Integration Partners", () => {
 	const integrationPartners = IntegrationPartnerFactory.getIntegrationPartners();

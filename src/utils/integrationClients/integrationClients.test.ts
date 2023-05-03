@@ -1,5 +1,7 @@
-import { HubspotIntegrationClient, IntegrationClientsFactory, SalesforceIntegrationClient, ZapierIntegrationClient } from "./integrationClients";
-
+import { HubspotIntegrationClient } from "./partners/hubspotIntegrationClient";
+import { IntegrationClientsFactory } from "./integrationClientFactory";
+import { SalesforceIntegrationClient } from "./partners/salesforceIntegrationClient";
+import { ZapierIntegrationClient } from "./partners/zapierIntegrationClient";
 
 test("Integration Factory returns the correct Integration Clients", () => {
 	const salesforce = IntegrationClientsFactory.getClientByID("Salesforce");
@@ -36,7 +38,7 @@ describe("Zapier Integration Client working as intended", () => {
 describe("Hubspot Integration Client working as intended", () => {
 	const hubspot = new HubspotIntegrationClient();
 
-	test("Hubspot required parameters are tenant_domain, client_id, client_secret, and field_mappings", () => {
+	test("Hubspot required parameters are tenant_domain, client_id and client_secret", () => {
 		const params = hubspot.requiredParams;
 
 		expect(params).toContain("tenant_domain");
