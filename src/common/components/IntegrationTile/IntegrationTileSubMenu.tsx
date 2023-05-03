@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useState } from 'react'
+import React, { useState } from 'react'
 import styles from "./IntegrationTileSubMenu.module.css";
 import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
@@ -36,9 +36,7 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 			integrationPartner.isConnected = true;
 			integrationPartner.requiredParams = paramVals
 			toggleSubMenu();
-			toast.success(outcome.message, {
-				position: "top-center",
-			})
+			toast.success(outcome.message)
 		} else {
 			toast.error(`Error code: ${outcome.status} - ${outcome.message}`)
 		}

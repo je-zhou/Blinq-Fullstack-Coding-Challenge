@@ -31,9 +31,7 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 			integrationPartner.isConnected = false;
 			integrationPartner.resetParams();
 			toggleSubMenu();
-			toast.success(outcome.message, {
-				position: "top-center",
-			})
+			toast.success(outcome.message)
 		} else {
 			toast.error(`Error code: ${outcome.status} - ${outcome.message}`)
 		}

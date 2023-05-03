@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Content.module.css';
-import { IntegrationPartnerFactory } from '@utils/integrationPartners';
+import { IntegrationPartnerFactory } from '@utils/integrationPartners/integrationPartners';
 import IntegrationTile from '@components/IntegrationTile/IntegrationTile';
 import { Toaster } from 'react-hot-toast';
 
