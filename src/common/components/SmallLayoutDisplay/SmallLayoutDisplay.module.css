@@ -1,0 +1,22 @@
+.smallLayoutDisplay {
+	min-height: 80vh;
+	padding: 24px;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 20px;
+}
+
+.title {
+	font-size: 48px;
+	font-weight: 600;
+}
+
+@media screen and (min-width: 720px) {
+	.smallLayoutDisplay {
+		display: none;
+	}
+}

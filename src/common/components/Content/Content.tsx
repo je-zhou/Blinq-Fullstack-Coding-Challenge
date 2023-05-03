@@ -11,7 +11,7 @@ export default function Content() {
 
 	return (
 		<div className={styles.content}>
-			<Toaster />
+			<Toaster /> {/* Need this to handle API alerts */}
 			<h1 className={styles.title}>Integrations</h1>
 			{
 				integrationTiles
