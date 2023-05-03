@@ -49,10 +49,6 @@ As I delved into the project, my attention turned to the structure of the UI and
 
 ![Code Structure](/public/assets/Structure.jpg)
 
-At first I was confused why the project scope wanted us to make use of Next.js' API route functionality as I believed it to be cleaner, simplier, and easier to just directly try connect to the third party Integration in the `connect()` function in the `IntegrationPartners` class.
-
-However I realised by separating the integration logic from the front-end code, we are able to write more maintainable and scalable code. This also allows us to modify the integration layer independently, without affecting the functionality of the front-end. Overall, the decoupling of the integration logic has not only improved the cleanliness of the code, but also increased its flexibility and ease of maintenance.
-
 ### Improvements
 
 - **Stricter parameter checks:** ATM the fields will accept any string longer than 8 characters. This can be improved by checking the specific requirements from each Integration's API and performing stricter client side form validation before sending out an API request to try integrate
