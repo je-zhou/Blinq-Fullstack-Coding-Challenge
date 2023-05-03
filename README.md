@@ -30,6 +30,10 @@ We have leveraged Next.js (a popular framework we love using here at Blinq) to s
 
 Setup by running `yarn` && `yarn dev`
 
+***
+
+For node enjoyers - `npm install` and `npm run dev`
+
 ## More information
 
 - You do not need to actually sync the contacts with these external services
