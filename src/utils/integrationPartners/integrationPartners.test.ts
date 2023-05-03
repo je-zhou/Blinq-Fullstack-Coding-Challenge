@@ -10,8 +10,6 @@ test("Integration Factory returns the correct Integration Partners", () => {
 	expect(integrationPartners).toContainEqual(hubspot);
 });
 
-
-
 describe("Salesforce Integration Class working as intended", () => {
 	const salesforce = new SalesforceIntegration();
 
@@ -38,7 +36,7 @@ describe("Zapier Integration Class working as intended", () => {
 describe("Hubspot Integration Class working as intended", () => {
 	const hubspot = new HubspotIntegration();
 
-	test("Hubspot required parameters are tenant_domain, client_id, client_secret, and field_mappings", () => {
+	test("Hubspot required parameters are tenant_domain, client_id and client_secret", () => {
 		const params = hubspot.getParamsList();
 
 		expect(params).toContain("tenant_domain");

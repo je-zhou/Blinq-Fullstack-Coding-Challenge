@@ -32,8 +32,6 @@ export class IntegrationPartner {
 
 	async connect(paramVals: { [key: string]: string }): Promise<APIOutcome> {
 
-		console.log(`Trying to integrate with ${this.name}`);
-
 		const contacts = Database.getContacts();
 
 		// Send a request to Blinq's API route and pass the collected parameters to try connect to external client
@@ -58,7 +56,6 @@ export class IntegrationPartner {
 	}
 
 	async disconnect(paramVals: { [key: string]: string }): Promise<APIOutcome> {
-		console.log(`Trying to disconnect from ${this.name}`);
 
 		// Send a request to Blinq's API route and pass the collected parameters to try disconnect from external client
 		const response = await fetch(`/api/integrations/${this.name}`,
@@ -139,8 +136,6 @@ export class HubspotIntegration extends IntegrationPartner {
 	// Hubspot requires Blinq to specify which fields the contact details should be mapped to
 	// To accomodate we will override the default connect function and pass new one specific for Hubspot
 	async connect(paramVals: { [key: string]: string; }): Promise<APIOutcome> {
-
-		console.log(`Trying to integrate with ${this.name}`);
 
 		const contacts = Database.getContacts();
 

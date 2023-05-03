@@ -42,7 +42,7 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 			toast.error(`Error code: ${outcome.status} - ${outcome.message}`)
 		}
 
-		console.log(outcome.message);
+		// console.debug(outcome.message);
 		setIsLoading(false);
 	}
 

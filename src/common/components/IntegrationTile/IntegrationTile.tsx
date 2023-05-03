@@ -36,7 +36,7 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 			toast.error(`Error code: ${outcome.status} - ${outcome.message}`)
 		}
 
-		console.log(outcome.message);
+		// console.debug(outcome.message);
 		setIsLoading(false);
 	}
 
