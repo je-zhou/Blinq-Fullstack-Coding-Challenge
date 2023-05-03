@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import styles from "./IntegrationTileSubMenu.module.css";
-import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
 import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners/integrationPartners';
 import { toast } from 'react-hot-toast';
 import { deepCopy } from '@utils/utils';
+import { ConnectButton } from '@components/Buttons/Buttons';
 
 interface IIntegrationTileSubMenu {
 	integrationPartner: IntegrationPartner,
@@ -51,12 +51,10 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 			{/* Fields */}
 			{fields}
 			{/* Connect Button */}
-			<button
-				className={`${buttonStyles.button} ${isLoading ? buttonStyles.loading : buttonStyles.connect}`}
+			<ConnectButton
 				type='submit'
-			>
-				{isLoading ? <LoadingIndicator /> : integrationPartner.isConnected ? "Save" : "Connect"}
-			</button>
+				text={integrationPartner.isConnected ? "Save" : "Connect"}
+				isLoading={isLoading} />
 		</form>
 	)
 }

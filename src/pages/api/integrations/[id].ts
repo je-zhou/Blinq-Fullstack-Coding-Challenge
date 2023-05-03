@@ -17,25 +17,30 @@ export default async function handler(
 
 	switch (method) {
 		case 'POST':
-
-			const client = IntegrationClientsFactory.getClientByID(id); // Get the right Integration Client based on id passed to the API route, if no client then throws error
-
-			if (body.type === "connect") {
-				await connectToClient(client, body.params, body.contacts, res);
-			}
-			else if (body.type === "disconnect") {
-				await disconnectFromClient(client, body.params, res);
-			}
-			else {
-				res.status(406).json({ outcome: "Error: Invalid connection type. Please pass either 'connect' or 'disconnect' as the value for the key 'type'" });
-			}
-
+			await postHandler(id, body, res);
 			break;
+		// case "GET":
+		// 	// Handle connection checks to make sure user is still integrated with service
 		default:
 			res.setHeader('Allow', ['POST']);
 			res.status(403).end(`Method ${method} Not Allowed`);
 			break;
 	}
+}
+
+async function postHandler(id: string, body: any, res: NextApiResponse<Data>) {
+	const client = IntegrationClientsFactory.getClientByID(id); // Get the right Integration Client based on id passed to the API route, if no client then throws error
+
+	if (body.type === "connect") {
+		await connectToClient(client, body.params, body.contacts, res);
+	}
+	else if (body.type === "disconnect") {
+		await disconnectFromClient(client, body.params, res);
+	}
+	else {
+		res.status(406).json({ outcome: "Error: Invalid connection type. Please pass either 'connect' or 'disconnect' as the value for the key 'type'" });
+	}
+
 }
 
 async function connectToClient(client: IntegrationClient, params: { [key: string]: any }, contacts: Array<Contact>, res: NextApiResponse<Data>) {
@@ -49,7 +54,6 @@ async function connectToClient(client: IntegrationClient, params: { [key: string
 		res.status(402).json({ outcome: "Connection Failed: Client Side Error" });
 	}
 }
-
 
 async function disconnectFromClient(client: IntegrationClient, params: { [key: string]: any }, res: NextApiResponse<Data>) {
 	const connectionOutcome = await client.disconnect(params);

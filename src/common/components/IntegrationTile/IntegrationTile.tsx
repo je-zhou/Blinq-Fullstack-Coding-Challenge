@@ -1,11 +1,11 @@
 import { APIOutcome, IntegrationPartner } from '@utils/integrationPartners/integrationPartners'
-import React, { useState } from 'react'
+import React, { ReactComponentElement, useState } from 'react'
 import styles from './IntegrationTile.module.css';
-import buttonStyles from "@styles/Button.module.css";
 import Image from 'next/image';
 import IntegrationTileSubMenu from './IntegrationTileSubMenu';
-import LoadingIndicator from '@components/LoadingIndicator/LoadingIndicator';
 import { toast } from 'react-hot-toast';
+import { DisconnectButton, BackButton, ManageButton, ConnectButton } from '@components/Buttons/Buttons';
+
 
 interface IIntegrationTile {
 	integrationPartner: IntegrationPartner
@@ -41,14 +41,13 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 	}
 
 	// Logic for button UI
-	let buttonClassType = isOpen ? buttonStyles.back :
-		integrationPartner.isConnected ? buttonStyles.manage :
-			buttonStyles.connect
+	let button = <ConnectButton onClick={toggleSubMenu} text={'Connect'} />;
 
-	const buttonMsg =
-		isOpen ? "Back" :
-			integrationPartner.isConnected ? "Manage" :
-				"Connect"
+	if (isOpen) {
+		button = <BackButton onClick={toggleSubMenu} text={'Back'} />
+	} else if (integrationPartner.isConnected) {
+		button = <ManageButton onClick={toggleSubMenu} text={'Manage'} />
+	}
 
 	return (
 		<div className={styles.container}>
@@ -75,15 +74,10 @@ export default function IntegrationTile({ integrationPartner }: IIntegrationTile
 					<div className={styles.buttonContainer}>
 						{
 							integrationPartner.isConnected && isOpen ?
-								<button className={`${buttonStyles.button} ${buttonStyles.disconnect}`} onClick={disconnect}>
-									{isLoading ? <LoadingIndicator /> : "Disconnect"}
-								</button> :
+								<DisconnectButton onClick={disconnect} text={'Disconnect'} isLoading={isLoading} /> :
 								<></>
 						}
-						<button className={`${buttonStyles.button} ${buttonClassType}`} onClick={toggleSubMenu}>
-							{buttonMsg}
-						</button>
-
+						{button}
 					</div>
 				</div>
 			</div>
