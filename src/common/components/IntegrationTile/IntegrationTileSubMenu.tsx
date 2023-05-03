@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./IntegrationTileSubMenu.module.css";
 import buttonStyles from "@styles/Button.module.css"
 import SubMenuField from './SubMenuField';
@@ -17,12 +17,16 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 
 	// Field values will be recorded in an Object: key - Field Name, value - Value
 	// This Object will then be submitted to the API to try connect with the Integration Partner
-	const [paramVals, setParamVals] = useState<{ [key: string]: string }>(integrationPartner.requiredParams);
+	const [paramVals, setParamVals] = useState<{ [key: string]: string }>({});
 
 	// Turning the list of required parameters into Field Components
 	const fields = integrationPartner.getParamsList().map((field) => {
 		return <SubMenuField key={field} fieldName={field} paramVals={paramVals} setParamVals={setParamVals} />
 	});
+
+	useEffect(() => {
+		setParamVals(Object.assign(integrationPartner.requiredParams))
+	})
 
 	async function onSubmit(event: any) {
 
@@ -30,11 +34,11 @@ export default function IntegrationTileSubMenu({ integrationPartner, toggleSubMe
 		setIsLoading(true);
 
 		// Pass in the field values as the required parameters to connect to the integration partner
-		const outcome: APIOutcome = await integrationPartner.connect(paramVals);
+		const outcome: APIOutcome = await integrationPartner.connect({ ...paramVals });
 
 		if (outcome.status === 200) {
 			integrationPartner.isConnected = true;
-			integrationPartner.requiredParams = paramVals
+			integrationPartner.requiredParams = { ...paramVals }
 			toggleSubMenu();
 			toast.success(outcome.message)
 		} else {

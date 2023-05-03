@@ -1,3 +1,5 @@
+import { Contact, Database } from "database";
+
 export interface APIOutcome {
 	status: number,
 	message: string
@@ -32,6 +34,8 @@ export class IntegrationPartner {
 
 		console.log(`Trying to integrate with ${this.name}`);
 
+		const contacts = Database.getContacts();
+
 		// Send a request to Blinq's API route and pass the collected parameters to try connect to external client
 		const response = await fetch(`/api/integrations/${this.name}`,
 			{
@@ -42,8 +46,8 @@ export class IntegrationPartner {
 				body: JSON.stringify({
 					type: "connect",
 					params: paramVals,
-				}
-				),
+					contacts: contacts
+				}),
 			});
 
 		const status = response.status;
@@ -66,8 +70,7 @@ export class IntegrationPartner {
 				body: JSON.stringify({
 					type: "disconnect",
 					params: paramVals,
-				}
-				),
+				}),
 			});
 
 		const status = response.status;
@@ -131,6 +134,44 @@ export class HubspotIntegration extends IntegrationPartner {
 		}
 
 		super(options);
+	}
+
+	// Hubspot requires Blinq to specify which fields the contact details should be mapped to
+	// To accomodate we will override the default connect function and pass new one specific for Hubspot
+	async connect(paramVals: { [key: string]: string; }): Promise<APIOutcome> {
+
+		console.log(`Trying to integrate with ${this.name}`);
+
+		const contacts = Database.getContacts();
+
+		// Custom field mapping for Hubspot
+		const field_mappings = {
+			firstName: "given_name",
+			lastName: "family_name",
+			hs_custom_field1234: "met_at_location",
+		}
+
+		const newParams: { [key: string]: any } = { ...paramVals, field_mappings: field_mappings }
+
+		// Send a request to Blinq's API route and pass the collected parameters to try connect to external client
+		const response = await fetch(`/api/integrations/${this.name}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					type: "connect",
+					params: newParams,
+					contacts: contacts
+				}),
+			});
+
+		const status = response.status;
+		const json = await response.json();
+
+		// return the API outcome
+		return { status: status, message: json.outcome }
 	}
 }
 

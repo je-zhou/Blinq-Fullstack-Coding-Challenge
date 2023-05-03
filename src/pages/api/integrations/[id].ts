@@ -21,12 +21,9 @@ export default async function handler(
 
 			// Check if the id passed in is a valid Integration Partner
 			if (client) {
-
-				const contacts = Database.getContacts();
-
 				if (body.type === "connect") {
 
-					const connectionOutcome = await client.connect(body.params, contacts);
+					const connectionOutcome = await client.connect(body.params, body.contacts);
 
 					// If success, return status 200
 					if (connectionOutcome) {
