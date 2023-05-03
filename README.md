@@ -56,9 +56,9 @@ As I delved into the project, my attention turned to the structure of the UI and
 To put my thought process into words.
 
 - Available integrations each have their own `IntegrationPartner` class.
-- These classes are mapped to a React Component `IntegrationTile` upon which a dropdown Sub Menu can be opened and within field in which to input the required parameters for each integration.
-- Once the required parameters have been entered, the `connect()` function sends this to a dyanamic API route which locates the `IntegrationClient` class (which are meant to be mocks of 3rd party code) by the `id` passed to the route.
-- We await the reponse from the client and if successful, update the fields in our original `IntegrationPartners` class such as `isConnected` and `requiredParams` which will in turn update our UI to reflect that it is now connected/disconnected
+- These classes are mapped to a React component called IntegrationTile. When clicked, it opens a dropdown submenu with fields where users can input the required parameters for each integration.
+- Once the required parameters have been entered, the connect() function sends this information to a dynamic API route that locates the IntegrationClient class (which is meant to mock third-party code) using the id passed to the route.
+- We await the response from the client, and if successful, update the fields in our original IntegrationPartner class, such as isConnected and requiredParams. This, in turn, updates our UI to reflect whether the integration is connected or disconnected.
 
 ### Improvements
 
