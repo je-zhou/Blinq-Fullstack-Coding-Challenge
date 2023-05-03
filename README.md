@@ -34,3 +34,26 @@ Setup by running `yarn` && `yarn dev`
 
 - You do not need to actually sync the contacts with these external services
 - You do not need to create actual database connections
+
+## My Approach
+
+### The Design
+
+My first step was to design the UI in [Figma](https://www.figma.com/file/gcEg3ysFjSDNMbcvgbzK60/Blinq---Fullstack-Coding-Project---Design-Sheet?node-id=0%3A1&t=rWFbJp6ujTiw7eVM-1), taking inspiration from Blinq's current webpage for some of the design aspects, colours, and css values.
+
+![Figma Design](/public/assets/FigmaDesign.jpg)
+
+### Code Structure
+
+As I delved into the project, my attention turned to the structure of the UI and how best to implement it using React components. From there, I considered how to connect these components to API routes in order to simulate the experience of connecting with third-party clients. Although this process involved some experimentation and refinement, I eventually arrived at the following workflow.
+
+![Code Structure](/public/assets/Structure.jpg)
+
+At first I was confused why the project scope wanted us to make use of Next.js' API route functionality as I believed it to be cleaner, simplier, and easier to just directly try connect to the third party Integration in the `connect()` function in the `IntegrationPartners` class.
+
+However I realised by separating the integration logic from the front-end code, we are able to write more maintainable and scalable code. This also allows us to modify the integration layer independently, without affecting the functionality of the front-end. Overall, the decoupling of the integration logic has not only improved the cleanliness of the code, but also increased its flexibility and ease of maintenance.
+
+### Improvements
+
+- **Stricter parameter checks:** ATM the fields will accept any string longer than 8 characters. This can be improved by checking the specific requirements from each Integration's API and performing stricter client side form validation before sending out an API request to try integrate
+- **Load user's integration statuses from database:** ATM will reset to no Integrations connected when page refreshes. In production we should save which Integration services the user has connected to in the database and load this into the IntegrationPartner class before rendering the page.

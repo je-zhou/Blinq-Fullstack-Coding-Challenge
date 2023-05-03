@@ -93,25 +93,6 @@ export class HubspotIntegrationClient extends IntegrationClient {
 
 		super(options);
 	}
-
-	// Hubspot requires Blinq to specify which fields the contact details should be mapped to
-	// To accomodate we will override the default connect function and pass new one specific for Hubspot
-	async connect(passedParameters: { [key: string]: string }, contactDetails: Array<Contact>): Promise<boolean> {
-
-		// Mocking a delay to replicate real world lag
-		await delay(1000);
-
-		for (let i = 0; i < this.requiredParams.length; i++) {
-			const param = this.requiredParams[i];
-
-			// Very simple parameter checking, if there is a non-null value for each required parameter the connection is successful
-			if (!passedParameters[param]) return false;
-		}
-
-		// syncContactDetailsHubspotSpecific(contactDetails)
-
-		return true;
-	}
 }
 
 export class IntegrationClientsFactory {
