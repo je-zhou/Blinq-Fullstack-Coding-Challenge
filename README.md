@@ -53,6 +53,13 @@ As I delved into the project, my attention turned to the structure of the UI and
 
 ![Code Structure](/public/assets/Structure.jpg)
 
+To put my thought process into words.
+
+- Available integrations each have their own `IntegrationPartner` class.
+- These classes are mapped to a React Component `IntegrationTile` upon which a dropdown Sub Menu can be opened and within field in which to input the required parameters for each integration.
+- Once the required parameters have been entered, the `connect()` function sends this to a dyanamic API route which locates the `IntegrationClient` class (which are meant to be mocks of 3rd party code) by the `id` passed to the route.
+- We await the reponse from the client and if successful, update the fields in our original `IntegrationPartners` class such as `isConnected` and `requiredParams` which will in turn update our UI to reflect that it is now connected/disconnected
+
 ### Improvements
 
 - **Stricter parameter checks:** ATM the fields will accept any string longer than 8 characters. This can be improved by checking the specific requirements from each Integration's API and performing stricter client side form validation before sending out an API request to try integrate
